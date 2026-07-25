@@ -1,6 +1,8 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import routes from './routes';
+import { connectToDatabase } from './config/database';
 
 dotenv.config();
 
@@ -14,6 +16,16 @@ app.get('/api/health', (_req, res) => {
   res.json({ status: 'ok', service: 'octofit-backend' });
 });
 
-app.listen(port, () => {
-  console.log(`Backend listening on http://localhost:${port}`);
-});
+app.use('/api', routes);
+
+connectToDatabase()
+  .then(() => {
+    console.log('Connected to octofit_db');
+    app.listen(port, () => {
+      console.log(`Backend listening on http://localhost:${port}`);
+    });
+  })
+  .catch((error) => {
+    console.error('Error connecting to octofit_db:', error);
+    process.exit(1);
+  });
