@@ -9,9 +9,10 @@ const workout_1 = require("./models/workout");
 const router = (0, express_1.Router)();
 const getApiBaseUrl = () => {
     const codespaceName = process.env.CODESPACE_NAME;
+    const port = process.env.PORT || '8000';
     return codespaceName
-        ? `https://${codespaceName}-8000.app.github.dev`
-        : 'http://localhost:8000';
+        ? `https://${codespaceName}-${port}.app.github.dev`
+        : `http://localhost:${port}`;
 };
 const buildCollectionResponse = (path, items) => ({
     apiUrl: `${getApiBaseUrl()}${path}`,
