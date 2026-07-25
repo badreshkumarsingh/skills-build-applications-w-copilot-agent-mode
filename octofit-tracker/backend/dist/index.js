@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const dotenv_1 = __importDefault(require("dotenv"));
-const routes_1 = __importDefault(require("./routes"));
+const server_1 = __importDefault(require("./server"));
 const database_1 = require("./config/database");
 dotenv_1.default.config();
 const app = (0, express_1.default)();
@@ -20,7 +20,7 @@ app.use(express_1.default.json());
 app.get('/api/health', (_req, res) => {
     res.json({ status: 'ok', service: 'octofit-backend' });
 });
-app.use('/api', routes_1.default);
+app.use('/api', server_1.default);
 (0, database_1.connectToDatabase)()
     .then(() => {
     console.log('Connected to octofit_db');
