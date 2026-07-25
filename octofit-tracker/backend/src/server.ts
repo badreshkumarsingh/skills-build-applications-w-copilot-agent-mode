@@ -11,7 +11,7 @@ const getApiBaseUrl = () => {
   const codespaceName = process.env.CODESPACE_NAME;
   const port = process.env.PORT || '8000';
   return codespaceName
-    ? `https://${codespaceName}-${port}.app.github.dev`
+    ? `https://${codespaceName}-8000.app.github.dev`
     : `http://localhost:${port}`;
 };
 
